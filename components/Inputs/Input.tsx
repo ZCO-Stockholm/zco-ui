@@ -11,6 +11,7 @@ const Container = styled.label`
 
 const InputTag = styled.input`
   font-size: 1rem;
+  font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.primary};
   border: ${({ theme }) => theme.borders.regular};
   border-radius: ${({ theme }) => theme.borderRadius};

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import PageLayout from '../components/Layout/PageLayout'
 import Logo from '../components/Logo/Logo'
 import Menu from '../components/Menu/Menu'
@@ -5,11 +6,18 @@ import Button from '../components/Button/Button'
 import Input from '../components/Inputs/Input'
 import Heading from '../components/Typography/Heading'
 import Card from '../components/Card/Card'
+import ModalSide from '../components/Modal/ModalSide'
+import Paragraph from '../components/Typography/Paragraph'
+import Spacer from '../components/Layout/Spacer'
+import Justify from '../components/Layout/Justify'
+import Label from '../components/Typography/Label'
 
 function HomePage() {
+  const [modalActive, setModalActive] = useState(false)
   const menuItems = [
-    { href: '/', icon: 'inbox', title: 'Sign out' },
-    { href: '/asfaf', icon: 'inbox' },
+    { href: '/requests', icon: 'Archive', title: 'Open requests' },
+    { href: '/asfaf', icon: 'CheckSquare', title: 'Closed requests' },
+    { href: '/a', icon: 'LogOut', title: 'Sign out' },
   ]
 
   return <PageLayout.Container>
@@ -32,17 +40,38 @@ Aliquam erat volutpat. Aenean ornare eget eros at ultrices. Integer accumsan gra
       />
 
       <br />
-      <Button buttonType="primary" buttonSize="large">Lorem ipsum</Button>
+      <Button buttonType="primary" buttonSize="large" onClick={ev => setModalActive(!modalActive)}>
+        Lorem ipsum
+      </Button>
 
-      <Card.Container>
-        <Card.Section sectionBorders={['left']}>
-          <Card.Header title="Lorem ipsum dolor">
-            something
-          </Card.Header>
-        </Card.Section>
-      </Card.Container>
 
     </PageLayout.Main>
+
+    <ModalSide isActive={modalActive}>
+      <Card.Container>
+        <Card.Section sectionBorders={['bottom']}>
+          <Card.Header title="Lorem ipsum dolor">
+            <Button buttonType="secondary" buttonSize="medium">Close</Button>
+            <Button buttonType="primary" buttonSize="medium">Save</Button>
+          </Card.Header>
+        </Card.Section>
+
+        <Card.Section sectionBorders={['bottom', 'right']} sectionWidth="50%">
+          <Spacer spaceVertical={20}>
+            <Justify justifyContent="space-between">
+              <Heading.Medium>Lorem ipsum dolor</Heading.Medium>
+              <Label labelSize="medium" icon="Archive">Edit</Label>
+            </Justify>
+            <Paragraph>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nibh elit, malesuada et nulla placerat, auctor venenatis magna. Praesent quis tellus volutpat, consectetur velit at, vehicula diam. Phasellus tristique dolor purus, eget porttitor tellus finibus a. Suspendisse elementum mollis viverra.
+            </Paragraph>
+          </Spacer>
+        </Card.Section>
+        <Card.Section sectionBorders={['bottom']} sectionWidth="50%">
+          B
+        </Card.Section>
+      </Card.Container>
+    </ModalSide>
   </PageLayout.Container>
 }
 

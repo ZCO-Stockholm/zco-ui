@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Heading from '../Typography/Heading'
 import Spacer from '../Layout/Spacer'
+import Justify from '../Layout/Justify'
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.bg};
@@ -12,13 +13,13 @@ const Container = styled.div`
 type SectionBorder = 'top' | 'left' | 'right' | 'bottom'
 
 interface SectionProps {
-  width?: string
+  sectionWidth?: string
   sectionBorders?: Array<SectionBorder> | null
 }
 
 const Section = styled.div<SectionProps>`
   padding: 50px;
-  width: 100%;
+  width: ${({ sectionWidth }) => sectionWidth || '100%'};
 
   ${({ sectionBorders, theme }) => {
     if (!sectionBorders) return
@@ -35,12 +36,12 @@ interface HeaderProps {
 const Header = ({ title, children, headingSize = 'Large' }: HeaderProps) => {
   const HeadingComp = Heading[headingSize]
 
-  return <Spacer justifyContent="space-between">
+  return <Justify justifyContent="space-between">
     {title && <HeadingComp>{title}</HeadingComp>}
-    {children && <div>
+    {children && <Spacer spaceHorizontal={10}>
       {children}
-    </div>}
-  </Spacer>
+    </Spacer>}
+  </Justify>
 }
 
 const Card = {

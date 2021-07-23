@@ -18,14 +18,18 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html {
+    box-sizing: border-box;
     font-size: 14px;
     line-height: 24px;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
   }
 
   body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     background-color: ${({ theme }) => theme.colors.bgBody};
     color: ${({ theme }) => theme.colors.primary};
     font-family: ${({ theme }) => theme.fonts.regular};
@@ -52,6 +56,8 @@ const theme = {
     secondary: '#888',
     bgBody: '#FCFCFC',
     bg: '#fff',
+    error: '#F66233',
+    success: '#098E6E',
   },
   borders: {
     accent: '1px solid #3378f6',

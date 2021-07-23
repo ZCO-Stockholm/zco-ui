@@ -1,17 +1,23 @@
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-const Container = styled.div`
-  display: ${({ isVisible }) => isVisible ? 'block' : 'none'};
+interface LabelHoverContainer {
+  isVisible: boolean
+  labelWidth: number
+}
+
+const LabelHoverContainer = styled.div<LabelHoverContainer>`
+  opacity: ${({ isVisible }) => isVisible ? '0.9' : '0'};
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.bg};
   position: absolute;
-  right: calc(-100% - 10px);
-  top: calc(50% - 14px);
+  top: 12px;
+  right: ${({ labelWidth }) => `-${labelWidth + 10}px`};
   border-radius: ${({ theme }) => theme.borderRadius};
-  opacity: 0.9;
   font-size: 12px;
-  padding: 2px 10px;
+  line-height: 16px;
+  padding: 5px 10px;
+  transition: opacity 0.3s ease;
 `
 
 const Arrow = styled.span`
@@ -24,13 +30,23 @@ const Arrow = styled.span`
   top: 9px;
 `
 
-const LabelHover = ({ children, isVisible }) => {
-  const refContainer = useRef()
+interface LabelHoverProps extends LabelHoverContainer {
+  children: React.ReactNode
+}
 
-  return <Container isVisible={isVisible} ref={refContainer}>
+const LabelHover = ({ children, isVisible }: LabelHoverProps) => {
+  const refContainer = useRef<HTMLDivElement>()
+  const [labelWidth, setLabelWidth] = useState<number>(0)
+
+  useEffect(() => {
+    if (!refContainer.current) return
+    setLabelWidth(refContainer.current.scrollWidth)
+  }, [refContainer, children])
+
+  return <LabelHoverContainer isVisible={isVisible} ref={refContainer} labelWidth={labelWidth}>
     <Arrow />
     {children}
-  </Container>
+  </LabelHoverContainer>
 }
 
 export default LabelHover

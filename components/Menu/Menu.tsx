@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { Inbox } from 'react-feather'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import LabelHover from '../Labels/LabelHover'
+import * as Feather from 'react-feather'
 
 const MenuContainer = styled.ul`
   padding: 5px;
@@ -34,25 +34,16 @@ const Menu = (props: MenuProps) => {
   </MenuContainer>
 }
 
-type MenuItem = {
-  title?: string
-  href: string
-  icon: string
-  isActive?: boolean
+interface MenuItemContainer {
+  isActive: boolean
+  isHovered: boolean
 }
 
-const MenuItemContainer = styled.li`
+const MenuItemContainer = styled.li<MenuItemContainer>`
   position: relative;
-  opacity: ${({ isActive }) => isActive ? 1 : 0.5};
 
-  ${LabelHover} {
-    display: none;
-  }
-
-  &:hover {
-    ${LabelHover} {
-      display: block;
-    }
+  svg {
+    opacity: ${({ isActive, isHovered }) => isActive || isHovered ? 1 : 0.5};
   }
 
   a {
@@ -61,34 +52,31 @@ const MenuItemContainer = styled.li`
   }
 `
 
-const MenuItemLabel = styled.div`
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.bg};
-  position: absolute;
-  right: calc(-100% - 10px);
-  top: calc(50% - 14px);
-  border-radius: ${({ theme }) => theme.borderRadius};
-  opacity: 0.9;
-  font-size: 12px;
-  padding: 2px 10px;
-`
+type MenuItem = {
+  title?: string
+  href: string
+  icon: string
+  isActive: boolean
+}
 
 const MenuItem = (props: MenuItem) => {
   const [isHovered, setIsHovered] = useState<boolean>(false)
   const { icon, href, title, isActive } = props
+  const IconComp = Feather[icon]
 
   const handleMouseEnter = ev => setIsHovered(true)
   const handleMouseLeave = ev => setIsHovered(false)
 
   return <MenuItemContainer
     isActive={isActive}
+    isHovered={isHovered}
     onMouseEnter={handleMouseEnter}
     onMouseLeave={handleMouseLeave}
   >
     {title && <LabelHover isVisible={isHovered}>{title}</LabelHover>}
     <Link href={href}>
       <a>
-        <Inbox />
+        {IconComp && <IconComp />}
       </a>
     </Link>
   </MenuItemContainer>
