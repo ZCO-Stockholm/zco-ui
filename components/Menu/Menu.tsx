@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import LabelHover from '../Labels/LabelHover'
-import * as Feather from 'react-feather'
+import Icon from '../Icon/Icon'
 
 const MenuContainer = styled.ul`
   padding: 5px;
@@ -16,6 +16,12 @@ const MenuContainer = styled.ul`
   align-items: center;
   flex-grow: 1;
 `
+
+type MenuItem = {
+  title?: string
+  href: string
+  icon: string
+}
 
 type MenuProps = {
   items: Array<MenuItem>
@@ -52,20 +58,19 @@ const MenuItemContainer = styled.li<MenuItemContainer>`
   }
 `
 
-type MenuItem = {
+type MenuItemProps = {
   title?: string
   href: string
   icon: string
   isActive: boolean
 }
 
-const MenuItem = (props: MenuItem) => {
+const MenuItem = (props: MenuItemProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false)
   const { icon, href, title, isActive } = props
-  const IconComp = Feather[icon]
 
-  const handleMouseEnter = ev => setIsHovered(true)
-  const handleMouseLeave = ev => setIsHovered(false)
+  const handleMouseEnter = (ev: React.MouseEvent) => setIsHovered(true)
+  const handleMouseLeave = (ev: React.MouseEvent) => setIsHovered(false)
 
   return <MenuItemContainer
     isActive={isActive}
@@ -76,7 +81,7 @@ const MenuItem = (props: MenuItem) => {
     {title && <LabelHover isVisible={isHovered}>{title}</LabelHover>}
     <Link href={href}>
       <a>
-        {IconComp && <IconComp />}
+        <Icon icon={icon} />
       </a>
     </Link>
   </MenuItemContainer>

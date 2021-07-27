@@ -30,12 +30,14 @@ const Arrow = styled.span`
   top: 9px;
 `
 
-interface LabelHoverProps extends LabelHoverContainer {
+interface LabelHoverProps {
   children: React.ReactNode
+  isVisible: boolean
+  labelWidth?: number
 }
 
 const LabelHover = ({ children, isVisible }: LabelHoverProps) => {
-  const refContainer = useRef<HTMLDivElement>()
+  const refContainer = useRef<HTMLDivElement>(null)
   const [labelWidth, setLabelWidth] = useState<number>(0)
 
   useEffect(() => {

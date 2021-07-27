@@ -1,6 +1,14 @@
 import styled from 'styled-components'
 
-const Container = styled.div`
+type ModalSide = 'right' | 'left'
+
+interface ModalSideContainerProps {
+  modalSide?: ModalSide
+  isActive: boolean
+  modalWidth?: string
+}
+
+const ModalSideContainer = styled.div<ModalSideContainerProps>`
   position: fixed;
   top: 0;
   ${({ modalSide, isActive, modalWidth }) => {
@@ -20,27 +28,25 @@ const Inner = styled.div`
   height: 100%;
 `
 
-type ModalSide = 'right' | 'left'
-
-type ModalSideProps = {
-  modalSide?: ModalSide
-  isActive: boolean
-  setIsActive: () => {}
-  modalWidth?: string
+interface ModalSideProps extends ModalSideContainerProps {
+  children: React.ReactNode
 }
 
 const ModalSide = ({
   modalSide = 'right',
   isActive = false,
-  setIsActive = () => {},
   modalWidth = '80%',
   children,
-}) => {
-  return <Container modalSide={modalSide} modalWidth={modalWidth} isActive={isActive}>
+}: ModalSideProps) => {
+  return <ModalSideContainer
+    modalSide={modalSide}
+    modalWidth={modalWidth}
+    isActive={isActive}
+  >
     <Inner>
       {children}
     </Inner>
-  </Container>
+  </ModalSideContainer>
 }
 
 export default ModalSide

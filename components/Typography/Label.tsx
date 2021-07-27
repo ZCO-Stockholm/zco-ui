@@ -1,5 +1,6 @@
+import React from 'react'
 import styled from 'styled-components'
-import * as Feather from 'react-feather'
+import Icon from '../Icon/Icon'
 
 type LabelSize = 'medium' | 'small'
 
@@ -21,7 +22,7 @@ const LabelContainer = styled.div<LabelContainerProps>`
       font-size: 12px;
     `
 
-    if (labelSize === 'small') return `
+    return `
       font-size: 10px;
       text-decoration: uppercase;
       color: ${theme.colors.secondary};
@@ -38,7 +39,7 @@ interface LabelProps extends LabelContainerProps {
   children: React.ReactNode
   icon?: string
   iconAlignment?: 'left' | 'right'
-  handleClick?: (ev) => {}
+  handleClick?: (ev: React.MouseEvent) => {}
 }
 
 const Label = ({
@@ -48,12 +49,11 @@ const Label = ({
   handleClick,
   ...rest
 }: LabelProps) => {
-  const Icon = Feather[icon]
 
   return <LabelContainer {...rest} withPointer={handleClick ? true : false} onClick={handleClick}>
-    {Icon && iconAlignment === 'left' && <Icon vector-effect="non-scaling-stroke" />}
+    {icon && iconAlignment === 'left' && <Icon icon={icon} />}
     {children}
-    {Icon && iconAlignment === 'right' && <Icon vectorEffect="non-scaling-stroke" />}
+    {icon && iconAlignment === 'right' && <Icon icon={icon} />}
   </LabelContainer>
 }
 

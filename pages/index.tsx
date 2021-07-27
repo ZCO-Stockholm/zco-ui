@@ -11,6 +11,7 @@ import Paragraph from '../components/Typography/Paragraph'
 import Spacer from '../components/Layout/Spacer'
 import Justify from '../components/Layout/Justify'
 import Label from '../components/Typography/Label'
+import Message from '../components/Message/Message'
 
 function HomePage() {
   const [modalActive, setModalActive] = useState(false)
@@ -30,9 +31,9 @@ function HomePage() {
     <PageLayout.Main>
       <Heading.Large>Lorem ipsum dolor sit amet</Heading.Large>
       <Heading.Medium>Lorem ipsum dolor sit amet</Heading.Medium>
-      <p>
+      <Paragraph>
 Aliquam erat volutpat. Aenean ornare eget eros at ultrices. Integer accumsan gravida enim, vel vestibulum ligula interdum eu. Sed enim felis, congue pretium lacus eu, bibendum hendrerit ante. Nunc ultricies quis risus ut efficitur. Nullam sed leo et mauris viverra bibendum nec ac diam. Nam a nulla accumsan ipsum cursus faucibus. Fusce vehicula libero et est ornare, ac efficitur turpis porttitor. Sed posuere enim libero, ac varius nunc rhoncus et. In et mauris justo.
-      </p>
+      </Paragraph>
 
       <Input
         label="Title"
@@ -43,6 +44,7 @@ Aliquam erat volutpat. Aenean ornare eget eros at ultrices. Integer accumsan gra
       <Button buttonType="primary" buttonSize="large" onClick={ev => setModalActive(!modalActive)}>
         Lorem ipsum
       </Button>
+      <Message>Lorem ipsum dolor</Message>
 
 
     </PageLayout.Main>

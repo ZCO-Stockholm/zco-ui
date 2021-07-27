@@ -24,7 +24,7 @@ const Button = styled.button<ButtonProps>`
       color: ${theme.colors.secondary};
     `
 
-    if (buttonType === 'primary') return `
+    else return `
       background-color: ${theme.colors.accent};
       color: ${theme.colors.bg};
       border: ${theme.borders.accent};
@@ -41,7 +41,7 @@ const Button = styled.button<ButtonProps>`
     if (buttonSize === 'medium') return `
       padding: 11px 20px 10px;
     `
-    if (buttonSize === 'small') return `
+    else return `
       padding: 6px 20px 5px;
     `
   }}
