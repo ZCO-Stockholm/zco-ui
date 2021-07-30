@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components"
+import theme from './theme'
 
 export const globals = `
   @font-face {
@@ -33,6 +34,9 @@ export const globals = `
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: 'agr', serif;
+    background-color: ${theme.colors.bgBody};
+    color: ${theme.colors.primary};
+    font-family: ${theme.fonts.regular};
   }
 
   a {

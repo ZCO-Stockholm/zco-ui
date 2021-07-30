@@ -1,9 +1,17 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Label from '../Typography/Label'
 
-const Container = styled.label`
+interface ContainerProps {
+  full?: boolean | undefined
+}
+
+const Container = styled.label<ContainerProps>`
   display: block;
+
+  ${({ full }) => full && css`
+    width: 100%;
+  `}
 
   > div {
     margin-bottom: 10px;
@@ -19,6 +27,7 @@ const InputTag = styled.input`
   padding: 17px 20px 16px;
   width: 100%;
 
+
   &:focus {
     border: ${({ theme }) => theme.borders.dark};
     outline: none;
@@ -32,14 +41,15 @@ const InputTag = styled.input`
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string
   required?: boolean
+  full?: boolean
 }
 
 const Input = (props: InputProps) => {
-  const { label, required, ...rest } = props
+  const { label, required, full, ...rest } = props
   const labelFormatted = `${label}${required ? ' *' : ''}`
 
-  return <Container>
-    {label && <Label labelSize="small">{labelFormatted}</Label>}
+  return <Container full={full}>
+    {label && <Label labelSize="small" labelColor="secondary">{labelFormatted}</Label>}
     <InputTag {...rest} />
   </Container>
 }

@@ -6,6 +6,7 @@ type MessageType = 'default' | 'error' | 'success'
 
 interface MessageContainerProps {
   messageType?: MessageType
+  full?: boolean
 }
 
 const MessageContainer = styled.div<MessageContainerProps>`
@@ -16,6 +17,10 @@ const MessageContainer = styled.div<MessageContainerProps>`
   font-size: 12px;
   line-height: 16px;
   padding: 10px 20px;
+
+  ${({ full }) => full && `
+    width: 100%;
+  `}
 
   ${({ messageType, theme }) => {
     if (messageType === 'error') return `
@@ -44,8 +49,8 @@ interface MessageProps extends MessageContainerProps {
   children: React.ReactNode
 }
 
-const Message = ({ messageType = 'default', icon, children }: MessageProps) => {
-  return <MessageContainer messageType={messageType}>
+const Message = ({ messageType = 'default', icon, children, full }: MessageProps) => {
+  return <MessageContainer messageType={messageType} full={full}>
     <Icon icon={icon || 'AlertCircle'} />
     <div>
       {children}

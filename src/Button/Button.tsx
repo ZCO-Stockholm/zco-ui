@@ -11,25 +11,42 @@ export interface ButtonProps {
   full?: boolean
 }
 
-const Button = styled.div<ButtonProps>`
+const Button = styled.button<ButtonProps>`
+  font-size: 1rem;
   font-family: ${({ theme }) => theme.fonts.medium};
   border-radius: ${({ theme }) => theme.borderRadius};
   font-weight: normal;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  will-change: background-color;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  &[disabled] {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
 
   ${({ theme, buttonType }) => {
     if (buttonType === 'secondary') return `
       background-color: transparent;
       border: ${theme.borders.dark};
       color: ${theme.colors.secondary};
+      transition: color 0.2s ease, border-color 0.2s ease;
+      will-change: color, border-color;
+      &:hover {
+        color: ${theme.colors.primary};
+        border-color: ${theme.colors.primary};
+      }
     `
 
     else return `
       background-color: ${theme.colors.accent};
       color: ${theme.colors.bg};
       border: ${theme.borders.accent};
+      transition: background-color 0.2s ease;
+      will-change: background-color;
       &:hover {
         background-color: ${theme.colors.accentDark};
       }

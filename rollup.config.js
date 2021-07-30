@@ -17,7 +17,14 @@ export default {
   plugins: [
     peerDepsExternal(),
     resolve(),
-    commonjs(),
+    commonjs({
+      namedExports: {
+        'react-table': [
+          'useTable',
+          'usePagination'
+        ]
+      }
+    }),
     typescript({ useTsconfigDeclarationDir: true })
   ]
 };

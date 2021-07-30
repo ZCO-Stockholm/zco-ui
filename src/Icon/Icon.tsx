@@ -5,13 +5,13 @@ interface IconProps {
   icon: string | undefined
 }
 
-const Icon = ({ icon }: IconProps) => {
+const Icon = ({ icon, ...rest }: IconProps) => {
   // @ts-ignore
   const IconComp = Feather[icon]
 
   if (!icon || !IconComp) return null
 
-  return <IconComp />
+  return <IconComp {...rest} />
 }
 
 export default Icon

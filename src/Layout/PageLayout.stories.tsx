@@ -3,7 +3,7 @@ import PageLayout from "./PageLayout";
 
 export default {
   title: "Page Layout"
-};
+}
 
 export const PageLayoutSidebar = () => <PageLayout.Container>
   <PageLayout.Sidebar>
