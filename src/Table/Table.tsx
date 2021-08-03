@@ -1,17 +1,23 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
-import { useTable, usePagination } from 'react-table'
+import { useTable, usePagination, useFilters } from 'react-table'
 import Button from '../Button/Button'
 import Icon from '../Icon/Icon'
-import { Spacer, Justify } from '../Layout/Layout'
+import { Spacer } from '../Layout/Layout'
 import Label from '../Typography/Label'
+import Select from '../Inputs/Select'
 
-const Pagination = styled(Justify)`
+const Pagination = styled(Spacer)`
   margin-top: 30px;
 
   ${Button} {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 7px 10px;
+  }
+`
+
+const Filters = styled(Spacer)`
+  select {
+    min-width: 150px;
   }
 `
 
@@ -50,7 +56,7 @@ const sharedStyles = css`
     input {
       background: transparent;
       font-size: 12px;
-      color: ${({ theme }) => theme.colors.primary}
+      color: ${({ theme }) => theme.colors.primary};
       padding: 0;
       margin: 0;
       border: 0;
@@ -103,6 +109,30 @@ const StylesLarge = styled.div`
   }
 `
 
+const SelectColumnFilter = ({ column: { filterValue, setFilter, preFilteredRows, id, Header } }) => {
+  // Get the options for filtering using the preFilteredRows
+  // and filter to unique values
+  const options = React.useMemo(() => {
+    const options = preFilteredRows
+      .map(row => row.values[id])
+      .filter((v, i, a) => a.indexOf(v) === i)
+
+    return options
+  }, [id, preFilteredRows])
+
+  const selectOptions = [
+    { label: Header, value: '' },
+    ...options.map(o => ({ label: o, value: o })),
+  ]
+
+  return <Select
+    options={selectOptions}
+    value={filterValue}
+    setValue={(newOption) => setFilter(newOption.value)}
+    selectSize="medium"
+  />
+}
+
 // Create an editable cell renderer
 const EditableCell = ({
   value: initialValue,
@@ -152,6 +182,7 @@ const ActionCell = ({
 const defaultColumn = {
   Cell: EditableCell,
   CellAction: ActionCell,
+  Filter: SelectColumnFilter,
 }
 
 // Be sure to pass our updateMyData and the skipPageReset option
@@ -161,6 +192,7 @@ function Table({
   updateMyData,
   skipPageReset,
   editableColumns = [],
+  filterableColumns = [],
   rowActions = [],
 }) {
   // For this example, we're using pagination to illustrate how to stop
@@ -196,79 +228,82 @@ function Table({
       updateMyData,
       rowActions,
     },
-    usePagination
+    useFilters,
+    usePagination,
   )
 
   // Render the UI for your table
-  return (
-    <>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
+  return <>
+    {filterableColumns.length > 0 && <Filters className="filters" spaceHorizontal={10}>
+      {headerGroups.map(headerGroup => headerGroup.headers.map(column => {
+        if (!column.canFilter || !filterableColumns.includes(column.id)) return null
+        console.log(column, 'zzz')
+        return <div key={column.id}>{column.render('Filter')}</div>
+      }))}
+    </Filters>}
+
+    <table {...getTableProps()}>
+      <thead>
+        {headerGroups.map(headerGroup => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+              <th {...column.getHeaderProps()}>
+                {column.render('Header')}
+              </th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {page.map((row, i) => {
+          prepareRow(row)
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map(cell => {
+                const isEditable = editableColumns.includes(cell.column.id)
+                const isAction = cell.column.id === 'actions'
+
+                return <td {...cell.getCellProps()}>
+                  {isAction ? cell.render('CellAction') : cell.render('Cell', { isEditable })}
+                </td>
+              })}
             </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row)
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  const isEditable = editableColumns.includes(cell.column.id)
-                  const isAction = cell.column.id === 'actions'
+          )
+        })}
+      </tbody>
+    </table>
 
-                  return <td {...cell.getCellProps()}>
-                    {isAction ? cell.render('CellAction') : cell.render('Cell', { isEditable })}
-                  </td>
-                })}
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-
-      <Pagination className="pagination" justifyContent="space-between">
-        <Spacer spaceHorizontal={10} alignItems="center">
-          <Button
-            buttonSize="small"
-            buttonType="secondary"
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-          >
-            <Icon icon="ArrowLeft" />
-          </Button>
-          <Button
-            buttonSize="small"
-            buttonType="secondary"
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-          >
-            <Icon icon="ArrowRight" />
-          </Button>
-          <Label labelSize="small" labelColor="secondary">
-            {`Page ${pageIndex + 1} of ${pageOptions.length}`}
-          </Label>
-        </Spacer>
-
-        <select
-          value={pageSize}
-          onChange={e => {
-            setPageSize(Number(e.target.value))
-          }}
+    <Pagination className="pagination" justifyContent="space-between">
+      <Spacer spaceHorizontal={10} alignItems="center">
+        <Button
+          buttonSize="medium"
+          buttonType="secondary"
+          onClick={() => previousPage()}
+          disabled={!canPreviousPage}
         >
-          {[10, 20, 30, 40, 50].map(pageSize => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </Pagination>
-    </>
-  )
+          <Icon icon="ArrowLeft" />
+        </Button>
+        <Button
+          buttonSize="medium"
+          buttonType="secondary"
+          onClick={() => nextPage()}
+          disabled={!canNextPage}
+        >
+          <Icon icon="ArrowRight" />
+        </Button>
+        <Label labelSize="small" labelColor="secondary">
+          {`Page ${pageIndex + 1} of ${pageOptions.length}`}
+        </Label>
+      </Spacer>
+
+      <Select
+        options={[10, 20, 30, 40, 50].map(o => ({ value: String(o), label: String(o) }))}
+        value={pageSize}
+        setValue={(o) => setPageSize(Number(o.value))}
+        selectSize="medium"
+      />
+    </Pagination>
+  </>
 }
 
 interface Column {
@@ -293,6 +328,7 @@ interface DataTableProps {
   updateColumn?: (rowValues: Row, columnId: string, newValue: string) => void
   rowActions?: Array<Action>
   editableColumns?: Array<string>
+  filterableColumns?: Array<string>
   style?: TableStyle
 }
 
@@ -302,6 +338,7 @@ const DataTable = ({
   updateColumn,
   rowActions,
   editableColumns = [],
+  filterableColumns = [],
   style = 'compact',
 }: DataTableProps) => {
   const finalColumns = useMemo(() => [
@@ -341,6 +378,7 @@ const DataTable = ({
       updateMyData={updateMyData}
       skipPageReset={skipPageReset}
       editableColumns={editableColumns}
+      filterableColumns={filterableColumns}
       rowActions={rowActions}
     />
   </Styles>

@@ -1,23 +1,12 @@
 import styled, { css } from 'styled-components'
 
-type JustifyTypes = 'space-between' | 'space-around' | 'space-evenly'
-
-interface JustifyProps {
-  justifyContent?: JustifyTypes
-}
-
-export const Justify = styled.div<JustifyProps>`
-  display: flex;
-  align-items: center;
-  width: 100%;
-
-  ${({ justifyContent }) => justifyContent && `justify-content: ${justifyContent};`}
-`
+type Justify = 'space-between' | 'space-around' | 'space-evenly'
 
 interface SpacerProps {
   spaceHorizontal?: number
   spaceVertical?: number
   alignItems?: string
+  justifyContent?: Justify
 }
 
 export const Spacer = styled.div<SpacerProps>`
@@ -28,30 +17,33 @@ export const Spacer = styled.div<SpacerProps>`
     align-items: ${alignItems};
   `}
 
+  ${({ justifyContent }) => justifyContent && css`
+    justify-content: ${justifyContent};
+  `}
+
   ${({ spaceHorizontal }) => spaceHorizontal && css`
     > * {
-      margin: 0 ${spaceHorizontal / 2}px;
+      margin: 0 ${spaceHorizontal / 2}px !important;
     }
     > *:first-child {
-      margin-left: 0;
+      margin-left: 0 !important;
     }
     > *:last-child {
-      margin-right: 0;
+      margin-right: 0 !important;
     }
   `}
 
   ${({ spaceVertical }) => spaceVertical && css`
     flex-direction: column;
-    align-items: center;
 
     > * {
-      margin: ${spaceVertical / 2}px 0;
+      margin: ${spaceVertical / 2}px 0 !important;
     }
     *:first-child {
-      margin-top: 0;
+      margin-top: 0 !important;
     }
     *:last-child {
-      margin-bottom: 0;
+      margin-bottom: 0 !important;
     }
   `}
 `

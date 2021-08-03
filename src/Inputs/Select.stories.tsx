@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Select from './Select'
 import styled from 'styled-components'
 
@@ -15,6 +15,15 @@ export default {
 const options = [
   { label: 'Lorem', value: 'lorem'},
   { label: 'Dolor', value: 'dolor'},
-  { label: 'Ipsum', value: 'ipsum'},
+  { label: 'Ipsum', value: 'ipsum', disabled: true },
 ]
-export const SelectDefault = () => <Select options={options} label="Lorem ipsum" />
+export const SelectDefault = () => {
+  const [value, setValue] = useState('ipsum')
+
+  return <Select
+    options={options}
+    label="Lorem ipsum"
+    value={value}
+    setValue={newOption => setValue(newOption.value)}
+  />
+}

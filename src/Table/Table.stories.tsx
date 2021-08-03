@@ -65,6 +65,14 @@ export const TableCompactEditable = () => <Container>
   />
 </Container>
 
+export const TableCompactFilters = () => <Container>
+  <Table
+    columns={tableColumns}
+    items={items}
+    filterableColumns={['storeId', 'street1']}
+  />
+</Container>
+
 export const TableLarge = () => <Table
   columns={tableColumns}
   items={items}

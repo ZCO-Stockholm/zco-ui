@@ -23,8 +23,8 @@ const Menu = (props: MenuProps) => {
   const { items } = props
 
   return <MenuContainer>
-    {items.map((item) => <MenuItem
-      key={item.href}
+    {items.map((item, i) => <MenuItem
+      key={i}
       {...item}
     />)}
   </MenuContainer>
@@ -50,7 +50,7 @@ const MenuItemContainer = styled.li<MenuItemContainer>`
 
 type MenuItemProps = {
   title?: string
-  href: string
+  href?: string
   icon: string
   isActive: boolean
   handleClick?: (ev: React.MouseEvent, props: MenuItemProps) => {}
@@ -59,7 +59,7 @@ type MenuItemProps = {
 
 const MenuItem = (props: MenuItemProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false)
-  const { icon, href, title, isActive, handleClick } = props
+  const { icon, href, title, isActive, handleClick = () => {} } = props
 
   const handleMouseEnter = (ev: React.MouseEvent) => setIsHovered(true)
   const handleMouseLeave = (ev: React.MouseEvent) => setIsHovered(false)

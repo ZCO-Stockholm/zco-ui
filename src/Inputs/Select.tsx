@@ -26,17 +26,33 @@ const SelectContainer = styled.div`
     position: absolute;
     top: calc(50% - 12px);
     right: 15px;
+    pointer-events: none;
   }
 `
 
-const StyledSelect = styled.select`
+type SelectSize = 'large' | 'medium'
+
+interface StyledSelectProps {
+  selectSize: SelectSize
+}
+
+const StyledSelect = styled.select<StyledSelectProps>`
   appearance: none;
   background: transparent;
   border: ${({ theme }) => theme.borders.regular};
   border-radius: ${({ theme }) => theme.borderRadius};
-  padding: 17px 20px 16px;
   font-size: 1rem;
   width: 100%;
+
+  ${({ selectSize }) => {
+    if (selectSize === 'medium') return css`
+      padding: 11px 55px 11px 20px;
+    `
+
+    return css`
+      padding: 16px 55px 16px 20px;
+    `
+  }}
 
   &:focus {
     border: ${({ theme }) => theme.borders.dark};
@@ -44,30 +60,44 @@ const StyledSelect = styled.select`
   }
 `
 
+type SelectOption = {
+  value: string
+  label: string
+  disabled?: boolean
+}
+
 interface SelectProps extends ContainerProps {
   label?: string
   required?: boolean
-  options: any
-  defaultValue?: string
-  onChange?: (newValue: string) => void
+  options: Array<SelectOption>
+  value: string
+  setValue: (newOption: SelectOption) => void
+  selectSize?: SelectSize
 } 
 
-const Select = ({ options, full, label, required, defaultValue, onChange }: SelectProps) => {
-  const [value, setValue] = useState<string>(defaultValue ?? '')
+const Select = ({
+  options,
+  full,
+  label,
+  required,
+  value,
+  setValue,
+  selectSize = 'large',
+}: SelectProps) => {
   const labelFormatted = `${label}${required ? ' *' : ''}`
 
   const handleChange = (ev: React.FormEvent<HTMLSelectElement>) => {
     // @ts-ignore
-    const newValue = ev.target.value
-    setValue(newValue)
-    if (onChange) onChange(newValue)
+    const label = ev.target.value
+    const newOption = options.find(o => o.label === label)
+    setValue(newOption)
   }
 
   return <Container full={full}>
     {label && <Label labelSize="small" labelColor="secondary">{labelFormatted}</Label>}
     <SelectContainer>
-      <StyledSelect value={value} onChange={handleChange}>
-        {options.map(option => <option key={option.value}>
+      <StyledSelect value={value} onChange={handleChange} selectSize={selectSize}>
+        {options.map(option => <option key={option.value} disabled={option.disabled}>
           {option.label}
         </option>)}
       </StyledSelect>

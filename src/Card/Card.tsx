@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Heading from '../Typography/Heading'
-import { Spacer, Justify } from '../Layout/Layout'
+import { Spacer } from '../Layout/Layout'
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.bg};
@@ -36,12 +36,12 @@ interface HeaderProps {
 const Header = ({ title, children, headingSize = 'Large' }: HeaderProps) => {
   const HeadingComp = Heading[headingSize]
 
-  return <Justify justifyContent="space-between">
+  return <Spacer justifyContent="space-between">
     {title && <HeadingComp>{title}</HeadingComp>}
     {children && <Spacer spaceHorizontal={10}>
       {children}
     </Spacer>}
-  </Justify>
+  </Spacer>
 }
 
 const Card = {

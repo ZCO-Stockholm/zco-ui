@@ -21,7 +21,8 @@ export default {
       namedExports: {
         'react-table': [
           'useTable',
-          'usePagination'
+          'usePagination',
+          'useFilters',
         ]
       }
     }),

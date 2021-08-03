@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import Label from '../Typography/Label'
 
 const ListContainer = styled.ul`
-
+  margin: 0;
+  padding: 0;
 `
 
 const ListItem = styled.li`
@@ -16,7 +17,8 @@ const ListLabel = styled(Label)`
   padding-right: 30px;
 `
 
-const ListValue = styled.div``
+const ListValue = styled.div`
+`
 
 interface ListItem {
   key: string

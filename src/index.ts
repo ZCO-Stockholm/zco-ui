@@ -2,7 +2,7 @@ import Button from './Button/Button'
 import Card from './Card/Card'
 import Icon from './Icon/Icon'
 import Input from './Inputs/Input'
-import { Spacer, Justify } from './Layout/Layout'
+import { Spacer } from './Layout/Layout'
 import PageLayout from './Layout/PageLayout'
 import Logo from './Logo/Logo'
 import Menu from './Menu/Menu'
@@ -24,7 +24,6 @@ export {
   Input,
   PageLayout,
   Spacer,
-  Justify,
   Logo,
   Menu,
   Message,
@@ -34,6 +33,7 @@ export {
   Label,
   LabelHover,
   Table,
+  List,
   theme,
   GlobalStyle
  }
