@@ -23,6 +23,10 @@ const theme = {
     dark: '1px solid #ccc',
   },
   borderRadius: '5px',
+  boxShadow: {
+    primary: '0px 0px 10px rgb(0 0 0 / 10%)',
+    dark: '0px 0px 10px rgb(0 0 0 / 20%)',
+  }
 }
 
 export default theme

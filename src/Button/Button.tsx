@@ -31,7 +31,7 @@ const Button = styled.button<ButtonProps>`
   ${({ theme, buttonType }) => {
     if (buttonType === 'secondary') return `
       background-color: transparent;
-      border: ${theme.borders.dark};
+      border: ${theme.borders.regular};
       color: ${theme.colors.secondary};
       transition: color 0.2s ease, border-color 0.2s ease;
       will-change: color, border-color;

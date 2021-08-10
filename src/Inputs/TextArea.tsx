@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import Label from '../Typography/Label'
 import { Container } from './style'
 
-const InputTag = styled.input`
+const TextAreaTag = styled.textarea`
   font-size: 1rem;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.primary};
@@ -11,7 +11,8 @@ const InputTag = styled.input`
   border-radius: ${({ theme }) => theme.borderRadius};
   padding: 17px 20px 16px;
   width: 100%;
-
+  min-width: 100%;
+  max-width: 100%;
 
   &:focus {
     border: ${({ theme }) => theme.borders.dark};
@@ -23,20 +24,21 @@ const InputTag = styled.input`
   }
 `
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface TextAreaProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   label?: string
   required?: boolean
   full?: boolean
+  value: string
 }
 
-const Input = (props: InputProps) => {
+const TextArea = (props: TextAreaProps) => {
   const { label, required, full, ...rest } = props
   const labelFormatted = `${label}${required ? ' *' : ''}`
 
   return <Container full={full}>
     {label && <Label labelSize="small" labelColor="secondary">{labelFormatted}</Label>}
-    <InputTag {...rest} />
+    <TextAreaTag {...rest} />
   </Container>
 }
 
-export default Input
+export default TextArea

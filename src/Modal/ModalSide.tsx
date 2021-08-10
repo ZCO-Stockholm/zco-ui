@@ -10,7 +10,7 @@ interface ModalSideContainerProps {
 }
 
 const ModalSideContainer = styled.div<ModalSideContainerProps>`
-  position: absolute;
+  position: fixed;
   top: 0;
   ${({ modalSide, isActive, modalWidth }) => {
     return `${modalSide}: ${isActive ? 0 : `-${modalWidth}`};`

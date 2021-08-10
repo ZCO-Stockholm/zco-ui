@@ -2,22 +2,7 @@ import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
 import Icon from '../Icon/Icon'
 import Label from '../Typography/Label'
-
-interface ContainerProps {
-  full?: boolean | undefined
-}
-
-const Container = styled.label<ContainerProps>`
-  display: block;
-
-  ${({ full }) => full && css`
-    width: 100%;
-  `}
-
-  > div {
-    margin-bottom: 10px;
-  }
-`
+import { Container, ContainerProps } from './style'
 
 const SelectContainer = styled.div`
   position: relative;
@@ -31,18 +16,32 @@ const SelectContainer = styled.div`
 `
 
 type SelectSize = 'large' | 'medium'
+type SelectColor = 'primary' | 'secondary' | 'accent'
 
 interface StyledSelectProps {
   selectSize: SelectSize
+  selectColor: SelectColor
 }
 
 const StyledSelect = styled.select<StyledSelectProps>`
   appearance: none;
-  background: transparent;
   border: ${({ theme }) => theme.borders.regular};
   border-radius: ${({ theme }) => theme.borderRadius};
   font-size: 1rem;
   width: 100%;
+
+  ${({ selectColor, theme }) => {
+    if(selectColor === 'secondary') return css`
+      background: transparent;
+      color: ${theme.colors.secondary};
+      font-family: ${theme.fonts.medium};
+    `
+
+    return css`
+      background: ${theme.colors.bg};
+      color: ${theme.colors.primary};
+    `
+  }}
 
   ${({ selectSize }) => {
     if (selectSize === 'medium') return css`
@@ -73,6 +72,7 @@ interface SelectProps extends ContainerProps {
   value: string
   setValue: (newOption: SelectOption) => void
   selectSize?: SelectSize
+  selectColor?: SelectColor 
 } 
 
 const Select = ({
@@ -83,6 +83,7 @@ const Select = ({
   value,
   setValue,
   selectSize = 'large',
+  selectColor = 'primary',
 }: SelectProps) => {
   const labelFormatted = `${label}${required ? ' *' : ''}`
 
@@ -96,7 +97,12 @@ const Select = ({
   return <Container full={full}>
     {label && <Label labelSize="small" labelColor="secondary">{labelFormatted}</Label>}
     <SelectContainer>
-      <StyledSelect value={value} onChange={handleChange} selectSize={selectSize}>
+      <StyledSelect
+        value={value}
+        onChange={handleChange}
+        selectSize={selectSize}
+        selectColor={selectColor}
+      >
         {options.map(option => <option key={option.value} disabled={option.disabled}>
           {option.label}
         </option>)}

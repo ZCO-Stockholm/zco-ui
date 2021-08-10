@@ -81,6 +81,10 @@ const StylesCompact = styled.div`
       }
     }
   }
+
+  ${Pagination} {
+    padding: 0 50px;
+  }
 `
 
 const StylesLarge = styled.div`
@@ -90,7 +94,12 @@ const StylesLarge = styled.div`
     tbody {
       tr {
         background-color: #fff;
-        box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+        box-shadow: ${({ theme }) => theme.boxShadow.primary};
+        transition: box-shadow 0.2s ease;
+        will-change: box-shadow;
+        &:hover {
+          box-shadow: ${({ theme }) => theme.boxShadow.dark};
+        }
       }
     }
 
@@ -130,6 +139,7 @@ const SelectColumnFilter = ({ column: { filterValue, setFilter, preFilteredRows,
     value={filterValue}
     setValue={(newOption) => setFilter(newOption.value)}
     selectSize="medium"
+    selectColor="secondary"
   />
 }
 
@@ -237,7 +247,6 @@ function Table({
     {filterableColumns.length > 0 && <Filters className="filters" spaceHorizontal={10}>
       {headerGroups.map(headerGroup => headerGroup.headers.map(column => {
         if (!column.canFilter || !filterableColumns.includes(column.id)) return null
-        console.log(column, 'zzz')
         return <div key={column.id}>{column.render('Filter')}</div>
       }))}
     </Filters>}
@@ -301,6 +310,7 @@ function Table({
         value={pageSize}
         setValue={(o) => setPageSize(Number(o.value))}
         selectSize="medium"
+        selectColor="secondary"
       />
     </Pagination>
   </>

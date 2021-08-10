@@ -15,10 +15,11 @@ type SectionBorder = 'top' | 'left' | 'right' | 'bottom'
 interface SectionProps {
   sectionWidth?: string
   sectionBorders?: Array<SectionBorder> | null
+  withPadding?: boolean
 }
 
 const Section = styled.div<SectionProps>`
-  padding: 50px;
+  ${({ withPadding }) => withPadding === false ? '' : `padding: 50px;`}
   width: ${({ sectionWidth }) => sectionWidth || '100%'};
 
   ${({ sectionBorders, theme }) => {

@@ -2,6 +2,7 @@ import Button from './Button/Button'
 import Card from './Card/Card'
 import Icon from './Icon/Icon'
 import Input from './Inputs/Input'
+import TextArea from './Inputs/TextArea'
 import { Spacer } from './Layout/Layout'
 import PageLayout from './Layout/PageLayout'
 import Logo from './Logo/Logo'
@@ -22,6 +23,7 @@ export {
   Card,
   Icon,
   Input,
+  TextArea,
   PageLayout,
   Spacer,
   Logo,

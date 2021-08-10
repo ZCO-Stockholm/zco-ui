@@ -17,6 +17,7 @@ const options = [
   { label: 'Dolor', value: 'dolor'},
   { label: 'Ipsum', value: 'ipsum', disabled: true },
 ]
+
 export const SelectDefault = () => {
   const [value, setValue] = useState('ipsum')
 
@@ -25,5 +26,17 @@ export const SelectDefault = () => {
     label="Lorem ipsum"
     value={value}
     setValue={newOption => setValue(newOption.value)}
+  />
+}
+
+export const SelectSecondary = () => {
+  const [value, setValue] = useState('ipsum')
+
+  return <Select
+    options={options}
+    label="Lorem ipsum"
+    value={value}
+    setValue={newOption => setValue(newOption.value)}
+    selectColor="secondary"
   />
 }

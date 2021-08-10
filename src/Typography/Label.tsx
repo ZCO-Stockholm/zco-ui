@@ -75,7 +75,7 @@ interface LabelProps extends LabelContainerProps {
   children: React.ReactNode
   icon?: string
   iconAlignment?: IconAlignment
-  handleClick?: (ev: React.MouseEvent) => {}
+  handleClick?: (ev?: React.MouseEvent) => void
 }
 
 const Label = ({
