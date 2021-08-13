@@ -20,5 +20,5 @@ export const LabelDefault = () => <>
   <Label labelSize="medium" icon="Archive">Label with icon</Label>
   <Label labelSize="medium" icon="Archive" iconAlignment="left">Label with icon left</Label>
   <br />
-  <Label labelSize="medium" labelColor="secondary" icon="Archive" withBorder={true}>Label with border</Label>
+  <Label labelSize="medium" labelColor="secondary" icon="Archive" withBorder={true}>Label medium with border</Label>
 </>

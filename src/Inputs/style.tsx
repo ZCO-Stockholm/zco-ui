@@ -11,7 +11,7 @@ export const Container = styled.label<ContainerProps>`
     width: 100%;
   `}
 
-  > div {
+  > div:first-of-type {
     margin-bottom: 10px;
   }
 `

@@ -18,6 +18,7 @@ const LabelContainer = styled.div<LabelContainerProps>`
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
+  align-items: center;
   font-family: ${({ theme }) => theme.fonts.medium};
   cursor: ${({ withPointer }) => withPointer ? 'cursor' : 'auto'};
   

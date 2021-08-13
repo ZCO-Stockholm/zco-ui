@@ -17,6 +17,8 @@ import theme from './styles/theme'
 import { GlobalStyle } from './styles/global'
 import Table from './Table/Table'
 import List from './List/List'
+import Select from './Inputs/Select'
+import DatePicker from './Inputs/DatePicker'
 
 export {
   Button,
@@ -24,6 +26,8 @@ export {
   Icon,
   Input,
   TextArea,
+  Select,
+  DatePicker,
   PageLayout,
   Spacer,
   Logo,

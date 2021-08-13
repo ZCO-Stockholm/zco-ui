@@ -17,3 +17,10 @@ export const InputText = () => <Input
   placeholder="Enter text here"
   required={true}
 />
+
+export const InputNumber = () => <Input
+  label="Input label"
+  placeholder="Enter number here"
+  required={true}
+  type="number"
+/>

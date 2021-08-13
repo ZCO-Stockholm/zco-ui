@@ -17,6 +17,10 @@ const Styles = styled(Container)`
     width: 100%
   }
 
+  .react-datepicker-popper {
+    z-index: 1000;
+  }
+
   .react-datepicker {
     background-color: ${({ theme }) => theme.colors.bg};
     color: ${({ theme }) => theme.colors.primary};
@@ -24,7 +28,6 @@ const Styles = styled(Container)`
     box-shadow: ${({ theme }) => theme.boxShadow.primary};
     border: ${({ theme }) => theme.borders.light};
     padding: 30px;
-    margin-top: 10px;
   }
 
   .react-datepicker__day-names,

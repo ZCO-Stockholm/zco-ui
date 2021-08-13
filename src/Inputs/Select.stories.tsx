@@ -1,12 +1,6 @@
 import React, { useState } from 'react'
 import Select from './Select'
-import styled from 'styled-components'
-
-const Container = styled.div`
-  > div {
-    margin-bottom: 20px;
-  }
-`
+import { Spacer } from '../Layout/Layout'
 
 export default {
   title: "Inputs"
@@ -19,24 +13,49 @@ const options = [
 ]
 
 export const SelectDefault = () => {
-  const [value, setValue] = useState('ipsum')
+  const [value, setValue] = useState<string>('ipsum')
 
-  return <Select
-    options={options}
-    label="Lorem ipsum"
-    value={value}
-    setValue={newOption => setValue(newOption.value)}
-  />
-}
-
-export const SelectSecondary = () => {
-  const [value, setValue] = useState('ipsum')
-
-  return <Select
-    options={options}
-    label="Lorem ipsum"
-    value={value}
-    setValue={newOption => setValue(newOption.value)}
-    selectColor="secondary"
-  />
+  return <Spacer spaceVertical={20}>
+    <Select
+      options={options}
+      label="Primary large"
+      value={value}
+      setValue={newOption => setValue(newOption.value)}
+    />
+    <Select
+      options={options}
+      label="Primary medium"
+      value={value}
+      setValue={newOption => setValue(newOption.value)}
+      selectSize="medium"
+    />
+    <Select
+      options={options}
+      label="Primary small"
+      value={value}
+      setValue={newOption => setValue(newOption.value)}
+      selectSize="small"
+    />
+    <Select
+      options={options}
+      label="Primary large rounded"
+      value={value}
+      setValue={newOption => setValue(newOption.value)}
+      selectRounded={true}
+    />
+    <Select
+      options={options}
+      label="Secondary large"
+      value={value}
+      setValue={newOption => setValue(newOption.value)}
+      selectColor="secondary"
+    />
+    <Select
+      options={options}
+      label="Accent large"
+      value={value}
+      setValue={newOption => setValue(newOption.value)}
+      selectColor="accent"
+    />
+  </Spacer>
 }

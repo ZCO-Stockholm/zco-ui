@@ -1,11 +1,12 @@
 import styled, { css } from 'styled-components'
 
 type Justify = 'space-between' | 'space-around' | 'space-evenly'
+type Align =  'stretch' | 'center' | 'flex-start' | 'flex-end' |  'baseline' | 'initial' | 'inherit'
 
 interface SpacerProps {
   spaceHorizontal?: number
   spaceVertical?: number
-  alignItems?: string
+  alignItems?: Align
   justifyContent?: Justify
 }
 
@@ -22,13 +23,13 @@ export const Spacer = styled.div<SpacerProps>`
   `}
 
   ${({ spaceHorizontal }) => spaceHorizontal && css`
-    > * {
+    & > * {
       margin: 0 ${spaceHorizontal / 2}px !important;
     }
-    > *:first-child {
+    & > *:first-child {
       margin-left: 0 !important;
     }
-    > *:last-child {
+    & > *:last-child {
       margin-right: 0 !important;
     }
   `}
@@ -36,13 +37,13 @@ export const Spacer = styled.div<SpacerProps>`
   ${({ spaceVertical }) => spaceVertical && css`
     flex-direction: column;
 
-    > * {
+    & > * {
       margin: ${spaceVertical / 2}px 0 !important;
     }
-    *:first-child {
+    & *:first-child {
       margin-top: 0 !important;
     }
-    *:last-child {
+    & *:last-child {
       margin-bottom: 0 !important;
     }
   `}
