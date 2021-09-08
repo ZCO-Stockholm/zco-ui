@@ -1,4 +1,12 @@
+import media from './media'
+
 const theme = {
+  padding: `
+    padding: 50px;
+    ${media.small} {
+      padding: 20px;
+    }
+  `,
   fonts: {
     regular: 'agr, sans-serif',
     medium: 'agm, sans-serif',

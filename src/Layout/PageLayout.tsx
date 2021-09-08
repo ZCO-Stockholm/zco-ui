@@ -21,7 +21,7 @@ const Sidebar = styled.aside`
 
 const Main = styled.main`
   flex-grow: 1;
-  padding: 50px;
+  ${({ theme }) => theme.padding}
   margin-left: 100px;
 `
 

@@ -20,7 +20,7 @@ interface SectionProps {
 }
 
 const Section = styled.div<SectionProps>`
-  ${({ withPadding }) => withPadding === false ? '' : `padding: 50px;`}
+  ${({ withPadding, theme }) => withPadding === false ? '' : theme.padding}
   width: ${({ sectionWidth }) => sectionWidth || '100%'};
 
   ${({ sectionBorders, theme }) => {
@@ -30,7 +30,6 @@ const Section = styled.div<SectionProps>`
 
   ${media.small} {
     width: 100%;
-    padding: 20px;
   }
 `
 
