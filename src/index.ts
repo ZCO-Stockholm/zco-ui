@@ -14,7 +14,7 @@ import Paragraph from './Typography/Paragraph'
 import Label from './Typography/Label'
 import LabelHover from './Typography/LabelHover'
 import theme from './styles/theme'
-import { GlobalStyle } from './styles/global'
+import createGlobalStyle from './styles/global'
 import Table from './Table/Table'
 import List from './List/List'
 import Select from './Inputs/Select'
@@ -41,5 +41,5 @@ export {
   Table,
   List,
   theme,
-  GlobalStyle
+  createGlobalStyle
  }

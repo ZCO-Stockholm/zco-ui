@@ -37,6 +37,7 @@ interface MenuItemContainer {
 
 const MenuItemContainer = styled.li<MenuItemContainer>`
   position: relative;
+  cursor: pointer;
 
   svg {
     opacity: ${({ isActive, isHovered }) => isActive || isHovered ? 1 : 0.5};
@@ -53,7 +54,7 @@ type MenuItemProps = {
   href?: string
   icon: string
   isActive: boolean
-  handleClick?: (ev: React.MouseEvent, props: MenuItemProps) => {}
+  handleClick?: (ev: React.MouseEvent) => void
 }
 
 
@@ -70,7 +71,7 @@ const MenuItem = (props: MenuItemProps) => {
     onMouseEnter={handleMouseEnter}
     onMouseLeave={handleMouseLeave}
   >
-    <a href={href} onClick={ev => handleClick(ev, props)}>
+    <a href={href} onClick={ev => handleClick(ev)}>
       {title && <LabelHover isVisible={isHovered}>{title}</LabelHover>}
       <Icon icon={icon} />
     </a>

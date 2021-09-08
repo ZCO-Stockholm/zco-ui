@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 interface LabelHoverContainer {
   isVisible: boolean
-  labelWidth: number
 }
 
 const LabelHoverContainer = styled.div<LabelHoverContainer>`
@@ -12,12 +11,14 @@ const LabelHoverContainer = styled.div<LabelHoverContainer>`
   color: ${({ theme }) => theme.colors.bg};
   position: absolute;
   top: 12px;
-  right: ${({ labelWidth }) => `-${labelWidth + 10}px`};
+  left: calc(100% + 10px);
   border-radius: ${({ theme }) => theme.borderRadius};
   font-size: 12px;
   line-height: 16px;
   padding: 5px 10px;
   transition: opacity 0.3s ease;
+  white-space: nowrap;
+  z-index: 100;
 `
 
 const Arrow = styled.span`
@@ -37,15 +38,7 @@ interface LabelHoverProps {
 }
 
 const LabelHover = ({ children, isVisible }: LabelHoverProps) => {
-  const refContainer = useRef<HTMLDivElement>(null)
-  const [labelWidth, setLabelWidth] = useState<number>(0)
-
-  useEffect(() => {
-    if (!refContainer.current) return
-    setLabelWidth(refContainer.current.scrollWidth)
-  }, [refContainer, children])
-
-  return <LabelHoverContainer isVisible={isVisible} ref={refContainer} labelWidth={labelWidth}>
+  return <LabelHoverContainer isVisible={isVisible}>
     <Arrow />
     {children}
   </LabelHoverContainer>

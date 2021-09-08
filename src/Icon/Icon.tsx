@@ -3,6 +3,7 @@ import * as Feather from 'react-feather'
 
 interface IconProps {
   icon: string | undefined
+  size?: number
 }
 
 const Icon = ({ icon, ...rest }: IconProps) => {

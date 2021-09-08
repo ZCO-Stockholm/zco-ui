@@ -13,11 +13,16 @@ const Sidebar = styled.aside`
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
+  position: fixed;
+  height: 100%;
+  width: 100px;
+  z-index: 100;
 `
 
 const Main = styled.main`
   flex-grow: 1;
   padding: 50px;
+  margin-left: 100px;
 `
 
 const PageLayout = {

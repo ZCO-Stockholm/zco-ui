@@ -40,10 +40,10 @@ export const Spacer = styled.div<SpacerProps>`
     & > * {
       margin: ${spaceVertical / 2}px 0 !important;
     }
-    & *:first-child {
+    & > *:first-child {
       margin-top: 0 !important;
     }
-    & *:last-child {
+    & > *:last-child {
       margin-bottom: 0 !important;
     }
   `}

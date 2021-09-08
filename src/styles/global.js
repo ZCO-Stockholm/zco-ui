@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components"
 import theme from './theme'
 
-export const globals = `
+const globals = `
   @font-face {
     font-family: agm;
     src: url('/fonts/agm.woff') format('woff');
@@ -44,6 +44,9 @@ export const globals = `
   }
 `
 
-export const GlobalStyle = createGlobalStyle`
+const create = (styles) =>  createGlobalStyle`
   ${globals}
+  ${styles || ''}
 `
+
+export default create

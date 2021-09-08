@@ -18,6 +18,7 @@ const Pagination = styled(Spacer)`
 const Filters = styled(Spacer)`
   select {
     min-width: 150px;
+    max-width: 250px;
   }
 `
 
@@ -62,9 +63,21 @@ const sharedStyles = css`
       border: 0;
     }
 
-    .actions span {
-      margin-left: 10px;
-      cursor: pointer;
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      span {
+        margin-left: 10px;
+        cursor: pointer;
+        font-family: ${({ theme }) => theme.fonts.medium};
+        color: ${({ theme }) => theme.colors.accent};
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        svg {
+          margin-left: 5px;
+        }
+      }
     }
   }
 `
@@ -137,7 +150,7 @@ const SelectColumnFilter = ({ column: { filterValue, setFilter, preFilteredRows,
   return <Select
     options={selectOptions}
     value={filterValue}
-    setValue={(newOption) => setFilter(newOption.value)}
+    setValue={(newOption) => setFilter(newOption)}
     selectSize="medium"
     selectColor="secondary"
   />
@@ -184,6 +197,7 @@ const ActionCell = ({
   return <div className="actions">
     {rowActions.map(a => <span key={a.label} onClick={ev => a.action(values)}>
       {a.label}
+      {a.icon && <Icon icon={a.icon} size={18} />}
     </span>)}
   </div>
 }
@@ -328,6 +342,7 @@ interface Row {
 interface Action {
   label: string
   action: (values: Row) => void
+  icon?: string
 }
 
 type TableStyle = 'compact' | 'large'

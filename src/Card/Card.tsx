@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Heading from '../Typography/Heading'
 import { Spacer } from '../Layout/Layout'
+import media from '../styles/media'
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.bg};
@@ -26,6 +27,11 @@ const Section = styled.div<SectionProps>`
     if (!sectionBorders) return
     return sectionBorders.map(b => `border-${b}: ${theme.borders.light};`)
   }}
+
+  ${media.small} {
+    width: 100%;
+    padding: 20px;
+  }
 `
 
 interface HeaderProps {

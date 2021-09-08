@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import media from '../styles/media'
 
 type ModalSide = 'right' | 'left'
 
@@ -22,6 +23,12 @@ const ModalSideContainer = styled.div<ModalSideContainerProps>`
   transition: ${({ modalSide }) => `${modalSide} 0.3s ease`};
   will-change: ${({ modalSide}) => modalSide};
   overflow: scroll;
+  z-index: 150;
+
+  ${media.small} {
+    width: 90%;
+    ${({ modalSide, isActive }) => `${modalSide}: ${isActive ? 0 : `-90%`};`}
+  }
 `
 
 const Inner = styled.div`

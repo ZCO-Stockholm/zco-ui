@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import Label from '../Typography/Label'
 
 export interface ContainerProps {
   full?: boolean | undefined
@@ -11,7 +12,7 @@ export const Container = styled.label<ContainerProps>`
     width: 100%;
   `}
 
-  > div:first-of-type {
+  & > div:first-of-type {
     margin-bottom: 10px;
   }
 `

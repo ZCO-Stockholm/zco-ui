@@ -45,7 +45,8 @@ export const TableCompact = () => <Container>
 </Container>
 
 const tableActions = [
-  { label: 'View', action: (values) => console.log(values) },
+  { label: 'View', action: (values) => console.log(values), icon: 'Eye' },
+  { label: 'Remove', action: (values) => console.log(values), icon: 'Trash' },
 ]
 
 export const TableCompactActions = () => <Container>
