@@ -45,6 +45,7 @@ const LabelContainer = styled.div<LabelContainerProps>`
       border-radius: 50px;
       padding: 2px 15px;
     `
+    else return ''
   }}
 
   ${({ labelSize }) => {

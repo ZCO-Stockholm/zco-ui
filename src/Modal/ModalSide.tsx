@@ -25,9 +25,9 @@ const ModalSideContainer = styled.div<ModalSideContainerProps>`
   overflow: scroll;
   z-index: 150;
 
-  ${media.small} {
-    width: 90%;
-    ${({ modalSide, isActive }) => `${modalSide}: ${isActive ? 0 : `-90%`};`}
+  ${media.smallMax} {
+    width: 95%;
+    ${({ modalSide, isActive }) => `${modalSide}: ${isActive ? 0 : `-100%`};`}
   }
 `
 

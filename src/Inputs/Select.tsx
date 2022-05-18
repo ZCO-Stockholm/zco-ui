@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 import Icon from '../Icon/Icon'
 import Label from '../Typography/Label'
 import { Container, ContainerProps } from './style'
+import media from '../styles/media'
 
 interface SelectContainerProps {
   selectSize: SelectSize
@@ -76,6 +77,9 @@ const StyledSelect = styled.select<StyledSelectProps>`
 
     return css`
       padding: 16px 55px 16px 20px;
+      ${media.smallMax} {
+        padding: 12px 15px 9px;
+      }
     `
   }}
 

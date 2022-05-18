@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import Label from '../Typography/Label'
 
 export interface ContainerProps {
   full?: boolean | undefined

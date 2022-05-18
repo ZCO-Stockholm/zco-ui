@@ -6,6 +6,7 @@ import Icon from '../Icon/Icon'
 import { Spacer } from '../Layout/Layout'
 import Label from '../Typography/Label'
 import Select from '../Inputs/Select'
+import media from '../styles/media'
 
 const Pagination = styled(Spacer)`
   margin-top: 30px;
@@ -17,12 +18,27 @@ const Pagination = styled(Spacer)`
 
 const Filters = styled(Spacer)`
   select {
-    min-width: 150px;
-    max-width: 250px;
+    ${media.smallMin} {
+      min-width: 150px;
+      max-width: 250px;
+    }
+  }
+
+  > div {
+    ${media.smallMax} {
+      width: 100%;
+      margin: 0 0 10px !important;
+    }
   }
 `
 
 const sharedStyles = css`
+  .container {
+    ${media.smallMax} {
+      overflow-x: scroll;
+    }
+  }
+
   table {
     width: 100%;
     border-spacing: 0;
@@ -46,11 +62,21 @@ const sharedStyles = css`
 
       :first-child {
         padding-left: 50px;
+        ${media.smallMax} {
+          padding-left: 20px;
+        }
       }
       :last-child {
         border-right: 0;
         text-align: right;
         padding-right: 50px;
+        ${media.smallMax} {
+          padding-right: 20px;
+        }
+      }
+
+      span {
+        white-space: nowrap;
       }
     }
 
@@ -97,6 +123,9 @@ const StylesCompact = styled.div`
 
   ${Pagination} {
     padding: 0 50px;
+    ${media.smallMax} {
+      padding: 0 20px;
+    }
   }
 `
 
@@ -231,8 +260,8 @@ function Table({
     canPreviousPage,
     canNextPage,
     pageOptions,
-    pageCount,
-    gotoPage,
+    //pageCount,
+    //gotoPage,
     nextPage,
     previousPage,
     setPageSize,
@@ -265,36 +294,38 @@ function Table({
       }))}
     </Filters>}
 
-    <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>
-                {column.render('Header')}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {page.map((row, i) => {
-          prepareRow(row)
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                const isEditable = editableColumns.includes(cell.column.id)
-                const isAction = cell.column.id === 'actions'
-
-                return <td {...cell.getCellProps()}>
-                  {isAction ? cell.render('CellAction') : cell.render('Cell', { isEditable })}
-                </td>
-              })}
+    <div className="container">
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <th {...column.getHeaderProps()}>
+                  {column.render('Header')}
+                </th>
+              ))}
             </tr>
-          )
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {page.map((row, i) => {
+            prepareRow(row)
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map(cell => {
+                  const isEditable = editableColumns.includes(cell.column.id)
+                  const isAction = cell.column.id === 'actions'
+
+                  return <td {...cell.getCellProps()}>
+                    {isAction ? cell.render('CellAction') : cell.render('Cell', { isEditable })}
+                  </td>
+                })}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
 
     <Pagination className="pagination" justifyContent="space-between">
       <Spacer spaceHorizontal={10} alignItems="center">
@@ -376,7 +407,7 @@ const DataTable = ({
   ], [columns])
 
   const [data, setData] = useState(items)
-  const [originalData] = useState(items)
+  //const [originalData] = useState(items)
   const [skipPageReset, setSkipPageReset] = useState(false)
 
   const updateMyData = (rowValues, columnId, value) => {
@@ -384,7 +415,7 @@ const DataTable = ({
     updateColumn(rowValues, columnId, value)
   }
 
-  const resetData = () => setData(originalData)
+  //const resetData = () => setData(originalData)
 
   useEffect(() => {
     setSkipPageReset(false)

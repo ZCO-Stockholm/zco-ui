@@ -24,12 +24,29 @@ const Section = styled.div<SectionProps>`
   width: ${({ sectionWidth }) => sectionWidth || '100%'};
 
   ${({ sectionBorders, theme }) => {
-    if (!sectionBorders) return
+    if (!sectionBorders) return ''
     return sectionBorders.map(b => `border-${b}: ${theme.borders.light};`)
   }}
 
-  ${media.small} {
+  ${media.smallMax} {
     width: 100%;
+  }
+`
+
+const HeaderContainer = styled(Spacer)`
+  flex-wrap: nowrap;
+
+  ${media.smallMax} {
+    h1 {
+      font-size: 18px;
+      line-height: 24px;
+    }
+
+    > div {
+      flex-wrap: nowrap;
+      max-height: 30px;
+      margin-left: 20px;
+    }
   }
 `
 
@@ -42,12 +59,12 @@ interface HeaderProps {
 const Header = ({ title, children, headingSize = 'Large' }: HeaderProps) => {
   const HeadingComp = Heading[headingSize]
 
-  return <Spacer justifyContent="space-between">
+  return <HeaderContainer justifyContent="space-between">
     {title && <HeadingComp>{title}</HeadingComp>}
     {children && <Spacer spaceHorizontal={10}>
       {children}
     </Spacer>}
-  </Spacer>
+  </HeaderContainer>
 }
 
 const Card = {

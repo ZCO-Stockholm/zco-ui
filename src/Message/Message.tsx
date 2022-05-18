@@ -9,6 +9,11 @@ interface MessageContainerProps {
   full?: boolean
 }
 
+export type MessageData = {
+  message: string | undefined
+  messageType: MessageType
+}
+
 const MessageContainer = styled.div<MessageContainerProps>`
   display: flex;
   align-items: center;

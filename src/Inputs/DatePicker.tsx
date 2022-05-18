@@ -5,6 +5,7 @@ import Label from '../Typography/Label'
 import Icon from '../Icon/Icon'
 import Button from '../Button/Button'
 import { Container } from './style'
+import media from '../styles/media'
 
 const Styles = styled(Container)`
   input {
@@ -14,7 +15,11 @@ const Styles = styled(Container)`
     border: ${({ theme }) => theme.borders.regular};
     border-radius: ${({ theme }) => theme.borderRadius};
     padding: 17px 20px 16px;
-    width: 100%
+    width: 100%;
+
+    ${media.smallMax} {
+      padding: 12px 15px 9px;
+    }
   }
 
   .react-datepicker-popper {

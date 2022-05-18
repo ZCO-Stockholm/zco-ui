@@ -4,6 +4,10 @@ interface MessageContainerProps {
     messageType?: MessageType;
     full?: boolean;
 }
+export declare type MessageData = {
+    message: string | undefined;
+    messageType: MessageType;
+};
 interface MessageProps extends MessageContainerProps {
     icon?: string;
     children: React.ReactNode;
